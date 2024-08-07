@@ -1,13 +1,18 @@
 LittlerootTown_MusicStore_MapScripts::
 	.byte 0
 
-@ TODO : display an image of the singers when interacted with
-
 .macro choose_starter text:req, flag:req species:req
+	showmonpic \species, 10, 3
 	msgbox \text, MSGBOX_SIGN
 
-	goto_if_set FLAG_RECEIVED_STARTER, LittlerootTown_MusicStore_EventScript_End
+	goto_if_set FLAG_RECEIVED_STARTER, LittlerootTown_MusicStore_EventScript_CloseStarter
 
+	message LittlerootTown_MusicStore_Text_PickThisOne
+	yesnobox 20, 8
+	closemessage
+	goto_if_eq VAR_RESULT, NO, LittlerootTown_MusicStore_EventScript_CloseStarter
+
+	hidemonpic
 	setflag \flag
 	setflag FLAG_RECEIVED_STARTER
 	removeobject VAR_LAST_TALKED
@@ -17,7 +22,8 @@ LittlerootTown_MusicStore_MapScripts::
 	goto LittlerootTown_MusicStore_EventScript_StarterCutscene
 .endm
 
-LittlerootTown_MusicStore_EventScript_End::
+LittlerootTown_MusicStore_EventScript_CloseStarter::
+	hidemonpic
 	end
 
 @ TODO add the starter pokémon
@@ -74,6 +80,9 @@ LittlerootTown_MusicStore_Text_StarterCenter::
 LittlerootTown_MusicStore_Text_StarterRight::
 	.string "It's “Chis-A”.\n"
 	.string "The CeVIO singer.$"
+
+LittlerootTown_MusicStore_Text_PickThisOne::
+	.string "Do you wan't to pick this one?$"
 
 LittlerootTown_MusicStore_Text_Shelf::
 	.string "You don't see anything of intrest.$"
