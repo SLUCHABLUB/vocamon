@@ -16,7 +16,7 @@ LittlerootTown_MusicStore_MapScripts::
 	setflag \flag
 	setflag FLAG_RECEIVED_STARTER
 	removeobject VAR_LAST_TALKED
-	givemon \species 5
+	givemon \species, 5
 	setflag FLAG_SYS_POKEMON_GET
 
 	goto LittlerootTown_MusicStore_EventScript_StarterCutscene
